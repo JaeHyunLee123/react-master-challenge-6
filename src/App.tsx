@@ -1,10 +1,18 @@
 import { useRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import {
   wishingCountriesAtom,
   visitedCountriesAtom,
   likingCountriesAtom,
 } from "./atom";
+
+const CenteringBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function App() {
   const { register, handleSubmit, formState, reset } = useForm<IData>();
@@ -50,16 +58,16 @@ export default function App() {
   };
 
   return (
-    <main>
+    <CenteringBox>
       <h2>내가 가고싶은 나라들</h2>
-      <form onSubmit={handleSubmit(onValidSubmit)}>
+      <CenteringBox as="form" onSubmit={handleSubmit(onValidSubmit)}>
         <input
           {...register("country", {
             required: "😟 required!",
           })}
           placeholder="이름"
         />
-        <span>{formState.errors?.country?.message}</span>
+        <p>{formState.errors?.country?.message}</p>
         <button>가자!</button>
         {wishingCountries.map((country, index) => (
           <div key={index}>
@@ -81,7 +89,7 @@ export default function App() {
             </span>
           </div>
         ))}
-      </form>
+      </CenteringBox>
       <h2>내가 가본 나라들</h2>
       {visitedCountries.map((country, index) => (
         <div key={index}>
@@ -118,6 +126,6 @@ export default function App() {
           </span>
         </div>
       ))}
-    </main>
+    </CenteringBox>
   );
 }
