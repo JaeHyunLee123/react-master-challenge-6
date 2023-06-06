@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const wishingContriesAtom = atom<string[]>({
+export const wishingCountriesAtom = atom<string[]>({
   key: "wishingCountries",
   default: [],
 });

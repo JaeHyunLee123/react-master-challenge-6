@@ -1,16 +1,42 @@
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useForm } from "react-hook-form";
 import {
-  wishingContriesAtom,
+  wishingCountriesAtom,
   visitedCountriesAtom,
   likingCountriesAtom,
 } from "./atom";
 
 export default function App() {
+  interface IData {
+    country: string;
+  }
+
+  const { register, handleSubmit, formState } = useForm<IData>();
+
+  const wishingCountries = useRecoilValue(wishingCountriesAtom);
+  const visitedCountries = useRecoilValue(visitedCountriesAtom);
+  const likingCountries = useRecoilValue(likingCountriesAtom);
+
+  const setWishingCountries = useSetRecoilState(wishingCountriesAtom);
+  const setvisitedCountries = useSetRecoilState(visitedCountriesAtom);
+  const setlikingCountries = useSetRecoilState(likingCountriesAtom);
+
+  const addWishingCountry = (data: IData) => {
+    setWishingCountries((current) => [...current, data.country]);
+  };
+
   return (
     <main>
       <h2>내가 가고싶은 나라들</h2>
-      <form>
-        <input placeholder="이름" />
+      <form onSubmit={handleSubmit(addWishingCountry)}>
+        <input
+          {...register("country", { required: true })}
+          placeholder="이름"
+        />
         <button>가자!</button>
+        {wishingCountries.map((country, index) => (
+          <h3 key={index}>{country}</h3>
+        ))}
       </form>
       <h2>내가 가본 나라들</h2>
       <h2>내가 좋아하는 나라들</h2>
