@@ -25,6 +25,15 @@ export default function App() {
     setWishingCountries((current) => [...current, data.country]);
   };
 
+  const deleteCountry = (
+    event: React.MouseEvent<HTMLElement>,
+    index: number
+  ) => {
+    const temp = [...wishingCountries];
+    temp.splice(index, 1);
+    setWishingCountries(temp);
+  };
+
   return (
     <main>
       <h2>내가 가고싶은 나라들</h2>
@@ -35,11 +44,20 @@ export default function App() {
         />
         <button>가자!</button>
         {wishingCountries.map((country, index) => (
-          <h3 key={index}>{country}</h3>
+          <div key={index}>
+            <h3>{country}</h3>
+            <span
+              onClick={(event) => {
+                deleteCountry(event, index);
+              }}
+            >
+              ❌
+            </span>
+          </div>
         ))}
       </form>
-      <h2>내가 가본 나라들</h2>
-      <h2>내가 좋아하는 나라들</h2>
+      {/* <h2>내가 가본 나라들</h2>
+      <h2>내가 좋아하는 나라들</h2> */}
     </main>
   );
 }
