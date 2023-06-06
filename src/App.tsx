@@ -7,10 +7,6 @@ import {
 } from "./atom";
 
 export default function App() {
-  interface IData {
-    country: string;
-  }
-
   const { register, handleSubmit, formState, reset } = useForm<IData>();
 
   const [wishingCountries, setWishingCountries] =
@@ -19,6 +15,10 @@ export default function App() {
     useRecoilState(visitedCountriesAtom);
   const [likingCountries, setLikingCountries] =
     useRecoilState(likingCountriesAtom);
+
+  interface IData {
+    country: string;
+  }
 
   const onValidSubmit = (data: IData) => {
     setWishingCountries((current) => [...current, data.country]);
