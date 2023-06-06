@@ -53,9 +53,12 @@ export default function App() {
       <h2>내가 가고싶은 나라들</h2>
       <form onSubmit={handleSubmit(onValidSubmit)}>
         <input
-          {...register("country", { required: true })}
+          {...register("country", {
+            required: "😟 required!",
+          })}
           placeholder="이름"
         />
+        <span>{formState.errors?.country?.message}</span>
         <button>가자!</button>
         {wishingCountries.map((country, index) => (
           <div key={index}>
