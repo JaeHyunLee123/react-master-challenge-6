@@ -11,7 +11,7 @@ export default function App() {
     country: string;
   }
 
-  const { register, handleSubmit, formState } = useForm<IData>();
+  const { register, handleSubmit, formState, reset } = useForm<IData>();
 
   const [wishingCountries, setWishingCountries] =
     useRecoilState(wishingCountriesAtom);
@@ -22,6 +22,7 @@ export default function App() {
 
   const onValidSubmit = (data: IData) => {
     setWishingCountries((current) => [...current, data.country]);
+    reset();
   };
 
   const deleteWishingCountry = (index: number) => {
